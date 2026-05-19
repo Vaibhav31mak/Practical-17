@@ -1,0 +1,17 @@
+global using AutoMapper;
+global using Microsoft.Extensions.Logging;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.AspNetCore.Identity;
+global using Microsoft.IdentityModel.Tokens;
+global using System.IdentityModel.Tokens.Jwt;
+global using System.Security.Claims;
+global using System.Text;
+global using Practical17.Application.Contracts;
+global using Practical17.Application.Dtos.Students;
+global using Practical17.Application.Dtos.Auth;
+global using Practical17.Domain.Common.ResultPattern;
+global using Practical17.Domain.Entities;
+global using Practical17.Infrastructure.UnitOfWorkPattern;
+global using Microsoft.Extensions.DependencyInjection;
+global using Practical17.Application.Mapping;
+global using Practical17.Application.Services;

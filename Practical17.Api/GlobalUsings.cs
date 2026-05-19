@@ -1,0 +1,12 @@
+﻿global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.AspNetCore.Authorization;
+global using Practical17.Application.Contracts;
+global using Practical17.Application.Dtos.Students;
+global using Practical17.Application.Dtos.Auth;
+global using Practical17.Api.Infrastructure.Exceptions;
+global using Practical17.Application.DependencyInjection;
+global using Practical17.Infrastructure.DependencyInjection;
+global using Microsoft.AspNetCore.Diagnostics;
+global using Practical17.Api.Exceptions;
+global using Practical17.Infrastructure.Identity;
+global using Microsoft.OpenApi;
