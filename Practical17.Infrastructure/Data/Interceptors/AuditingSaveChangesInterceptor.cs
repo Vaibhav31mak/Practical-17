@@ -4,6 +4,16 @@ public sealed class AuditingSaveChangesInterceptor : SaveChangesInterceptor
 {
     public Guid CurrentUserId { get; set; } = Guid.Empty;
 
+    /// <summary>
+    /// Overriden SaveChanges method to automatically set auditing properties for 
+    /// entities that implement ICreatable, IUpdatable, and ISoftDeletable interfaces.
+    /// This is the best practice used for auditing rather than triggers make maintainability,
+    /// scalability and circular dependency issues. It also allows us to have more control 
+    /// over the auditing process and easily extend it in the future if needed.
+    /// </summary>
+    /// <param name="eventData"></param>
+    /// <param name="result"></param>
+    /// <returns>InterceptionResult</returns>
     public override InterceptionResult<int> SavingChanges(
         DbContextEventData eventData,
         InterceptionResult<int> result)

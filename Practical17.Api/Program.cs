@@ -29,7 +29,8 @@ builder.Services.AddSwaggerGen(options =>
             [] // Required scopes (empty array for standard JWT)
         }
     });
-}); builder.Services.AddInfrastructureServices(builder.Configuration);
+}); 
+builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationServices();
 
 var app = builder.Build();

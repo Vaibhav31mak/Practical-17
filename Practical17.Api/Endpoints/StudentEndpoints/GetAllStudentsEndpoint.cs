@@ -1,5 +1,6 @@
 ﻿namespace Practical17.Api.Endpoints.StudentEndpoints;
 
+// Get all students endpoint
 public class GetAllStudentsEndpoint(IStudentService studentService) : BaseEndpoint
 {
     [HttpGet("api/students")]

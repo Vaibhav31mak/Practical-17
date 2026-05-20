@@ -1,5 +1,10 @@
 ﻿namespace Practical17.Infrastructure.Data.Configurations;
 
+// Writing Data Annotations on the entity classes violates SRP.
+// Morever writing the validations in the DbContext class using
+// Fluent API makes it bulky and hard to maintain.
+// So, I am using the IEntityTypeConfiguration<T> interface to
+// separate the configuration of the Student entity into its own class.
 public class StudentConfiguration : IEntityTypeConfiguration<Student>
 {
     public void Configure(EntityTypeBuilder<Student> builder)
@@ -25,12 +30,5 @@ public class StudentConfiguration : IEntityTypeConfiguration<Student>
 
         builder.HasIndex(s => s.RollNumber)
             .IsUnique();
-
-        /*
-        builder.HasOne(s => s.AssignedUser)
-            .WithMany() // Or .WithMany(u => u.Students) if User has a collection
-            .HasForeignKey("AssignedUserId") // Shadow property or actual property
-            .OnDelete(DeleteBehavior.SetNull); // or Restrict/Cascade
-        */
     }
 }

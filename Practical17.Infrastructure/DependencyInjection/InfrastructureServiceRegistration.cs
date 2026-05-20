@@ -1,7 +1,23 @@
+using Practical17.Infrastructure.Data.DbContext;
+
 namespace Practical17.Infrastructure.DependencyInjection;
 
+// Added this extentsion method on IServiceCollection to register all the services related to infrastructure layer in one place.
+// This will be called in the Program.cs file of the API project to add these services to the DI container.
+// Also this make program.cs file clean and maintainable by keeping the infrastructure related service registrations in the
+// infrastructure layer itself.
 public static class InfrastructureServiceRegistration
 {
+    /// <summary>
+    /// This method registers following services for the infrastructure layer:-
+    /// => DbContext
+    /// => Identity services
+    /// => Authentication
+    /// => Unit of Work
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="configuration"></param>
+    /// <returns>IServiceCollection</returns>
     public static IServiceCollection AddInfrastructureServices(
         this IServiceCollection services,
         IConfiguration configuration)
@@ -18,7 +34,7 @@ public static class InfrastructureServiceRegistration
         });
 
         services.AddIdentityCore<ApplicationUser>()
-            .AddRoles<IdentityRole<Guid>>()
+            .AddRoles<ApplicationRole>()
             .AddEntityFrameworkStores<StudentDbContext>();
 
         services.AddAuthentication(options =>
