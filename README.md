@@ -166,8 +166,8 @@ Configure JWT inside `appsettings.json`.
 ## Default Admin User
 
 ```txt
-Email    : admin@practical17.local
-Password : Admin@12345
+Email    : admin@gmail.com
+Password : Admin@123
 Role     : Admin
 ```
 
