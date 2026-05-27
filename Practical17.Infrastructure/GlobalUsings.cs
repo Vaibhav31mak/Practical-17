@@ -17,3 +17,4 @@ global using Practical17.Infrastructure.Repositories.Contracts;
 global using Practical17.Infrastructure.Repositories.Implementations;
 global using Practical17.Infrastructure.UnitOfWorkPattern;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using System.Linq.Expressions;

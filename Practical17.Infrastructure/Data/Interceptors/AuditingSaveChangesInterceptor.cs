@@ -18,8 +18,25 @@ public sealed class AuditingSaveChangesInterceptor : SaveChangesInterceptor
         DbContextEventData eventData,
         InterceptionResult<int> result)
     {
-        var context = eventData.Context;
-        if (context == null) return base.SavingChanges(eventData, result);
+        ApplyAuditing(eventData.Context);
+        return base.SavingChanges(eventData, result);
+    }
+
+    public override ValueTask<InterceptionResult<int>> SavingChangesAsync(
+        DbContextEventData eventData,
+        InterceptionResult<int> result,
+        CancellationToken cancellationToken = default)
+    {
+        ApplyAuditing(eventData.Context);
+        return base.SavingChangesAsync(eventData, result, cancellationToken);
+    }
+
+    private void ApplyAuditing(Microsoft.EntityFrameworkCore.DbContext? context)
+    {
+        if (context == null)
+        {
+            return;
+        }
 
         var now = DateTimeOffset.UtcNow;
 
@@ -45,7 +62,5 @@ public sealed class AuditingSaveChangesInterceptor : SaveChangesInterceptor
                 entry.Property(nameof(ISoftDeletable.DeletedBy)).CurrentValue = CurrentUserId;
             }
         }
-
-        return base.SavingChanges(eventData, result);
     }
 }
