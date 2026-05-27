@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Practical17.Infrastructure.Data.Filters;
 
 namespace Practical17.Infrastructure.Data.DbContext;
 
@@ -13,5 +14,6 @@ public class StudentDbContext(DbContextOptions<StudentDbContext> options)
         base.OnModelCreating(builder);
 
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        builder.ApplySoftDeleteQueryFilters();
     }
 }
