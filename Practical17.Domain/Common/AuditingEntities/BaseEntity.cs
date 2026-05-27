@@ -1,5 +1,8 @@
 ﻿namespace Practical17.Domain.Common.AuditingEntities;
 
+// This is the base entity class which implements all the auditing properties and
+// also the concurrency check property. Followed ISP and LSP by making separate
+// interfaces for each concern and then implementing them in the base entity class.
 public class BaseEntity<TId> : ICreatable,
     IUpdatable,
     ISoftDeletable,

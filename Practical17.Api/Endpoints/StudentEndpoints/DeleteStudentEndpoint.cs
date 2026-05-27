@@ -1,5 +1,6 @@
 ﻿namespace Practical17.Api.Endpoints.StudentEndpoints;
 
+// Delete endpoint for Student entity
 public class DeleteStudentEndpoint(IStudentService studentService) : BaseEndpoint
 {
     [HttpDelete("api/students/{id:guid}")]

@@ -1,9 +1,12 @@
 ﻿using System.Reflection;
+using Practical17.Infrastructure.Data.Filters;
 
-namespace Practical17.Infrastructure.Data;
+namespace Practical17.Infrastructure.Data.DbContext;
 
+// This class represents the Identity DbContext for the application,
+// which includes both the Identity tables and the application-specific tables.
 public class StudentDbContext(DbContextOptions<StudentDbContext> options)
-    : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>(options)
+    : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>(options)
 {
     public DbSet<Student> Students => Set<Student>();
     protected override void OnModelCreating(ModelBuilder builder)
@@ -11,5 +14,6 @@ public class StudentDbContext(DbContextOptions<StudentDbContext> options)
         base.OnModelCreating(builder);
 
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        builder.ApplySoftDeleteQueryFilters();
     }
 }

@@ -166,8 +166,8 @@ Configure JWT inside `appsettings.json`.
 ## Default Admin User
 
 ```txt
-Email    : admin@practical17.local
-Password : Admin@12345
+Email    : admin@gmail.com
+Password : Admin@123
 Role     : Admin
 ```
 
@@ -187,6 +187,67 @@ Role     : Admin
 | Swagger          | API Documentation |
 
 ---
+
+Add this section near the end of the README:
+
+---
+
+# Code Quality & Documentation
+
+The project follows clean and maintainable coding practices with strong focus on readability and scalability.
+
+## Included Practices
+
+* XML documentation summaries for methods and services
+* Meaningful inline comments for complex business logic
+* Clear naming conventions
+* Interface-driven architecture
+* Separation of concerns across layers
+* Reusable service and repository abstractions
+* Centralized validation and exception handling
+
+## Documentation Style
+
+The codebase includes:
+
+* Method summaries explaining purpose and behavior
+* Parameter and return value documentation
+* Comments for important architectural decisions
+* Readable and self-explanatory business logic
+
+Example:
+
+```csharp
+/// <summary>
+/// Creates a new student and stores it in the database.
+/// </summary>
+/// <param name="dto">Student creation request.</param>
+/// <returns>Created student details.</returns>
+public async Task<Result<StudentDto>> CreateAsync(CreateStudentDto dto)
+{
+    // Map DTO to entity
+    var student = mapper.Map<Student>(dto);
+
+    await repository.AddAsync(student);
+
+    // Persist changes using Unit Of Work
+    await unitOfWork.SaveChangesAsync();
+
+    return Result<StudentDto>.Success(
+        mapper.Map<StudentDto>(student));
+}
+```
+
+Benefits:
+
+* Easier onboarding for developers
+* Better maintainability
+* Improved debugging experience
+* Cleaner API understanding
+* Better IDE IntelliSense support
+
+---
+
 
 # Setup Instructions
 
@@ -466,7 +527,3 @@ Provides:
 * OpenTelemetry
 
 ---
-
-# License
-
-This project is intended for learning and practical architecture implementation purposes.

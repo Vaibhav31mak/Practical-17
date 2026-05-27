@@ -1,5 +1,6 @@
 ﻿namespace Practical17.Api.Endpoints.StudentEndpoints;
 
+// Get endpoint for Student entity by ID
 public class GetStudentByIdEndpoint(IStudentService studentService) : BaseEndpoint
 {
     [HttpGet("api/students/{id:guid}")]

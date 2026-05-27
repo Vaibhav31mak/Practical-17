@@ -1,8 +1,7 @@
-using Practical17.Application.Dtos.Auth;
-using Practical17.Domain.Common.ResultPattern;
-
 namespace Practical17.Application.Contracts;
 
+// IAuth service interface defines the contract for authentication-related operations,
+// such as user login and registration.
 public interface IAuthService
 {
     Task<Result<AuthResultDto>> LoginAsync(LoginRequestDto request);

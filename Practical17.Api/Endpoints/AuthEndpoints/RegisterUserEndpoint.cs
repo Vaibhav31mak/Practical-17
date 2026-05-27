@@ -1,5 +1,6 @@
 namespace Practical17.Api.Endpoints.AuthEndpoints;
 
+// Endpoint for registering a new user
 public sealed class RegisterUserEndpoint(IAuthService authService) : BaseEndpoint
 {
     [HttpPost("api/auth/register")]

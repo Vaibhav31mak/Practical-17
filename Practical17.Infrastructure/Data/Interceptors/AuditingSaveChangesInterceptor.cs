@@ -4,12 +4,39 @@ public sealed class AuditingSaveChangesInterceptor : SaveChangesInterceptor
 {
     public Guid CurrentUserId { get; set; } = Guid.Empty;
 
+    /// <summary>
+    /// Overriden SaveChanges method to automatically set auditing properties for 
+    /// entities that implement ICreatable, IUpdatable, and ISoftDeletable interfaces.
+    /// This is the best practice used for auditing rather than triggers make maintainability,
+    /// scalability and circular dependency issues. It also allows us to have more control 
+    /// over the auditing process and easily extend it in the future if needed.
+    /// </summary>
+    /// <param name="eventData"></param>
+    /// <param name="result"></param>
+    /// <returns>InterceptionResult</returns>
     public override InterceptionResult<int> SavingChanges(
         DbContextEventData eventData,
         InterceptionResult<int> result)
     {
-        var context = eventData.Context;
-        if (context == null) return base.SavingChanges(eventData, result);
+        ApplyAuditing(eventData.Context);
+        return base.SavingChanges(eventData, result);
+    }
+
+    public override ValueTask<InterceptionResult<int>> SavingChangesAsync(
+        DbContextEventData eventData,
+        InterceptionResult<int> result,
+        CancellationToken cancellationToken = default)
+    {
+        ApplyAuditing(eventData.Context);
+        return base.SavingChangesAsync(eventData, result, cancellationToken);
+    }
+
+    private void ApplyAuditing(Microsoft.EntityFrameworkCore.DbContext? context)
+    {
+        if (context == null)
+        {
+            return;
+        }
 
         var now = DateTimeOffset.UtcNow;
 
@@ -35,7 +62,5 @@ public sealed class AuditingSaveChangesInterceptor : SaveChangesInterceptor
                 entry.Property(nameof(ISoftDeletable.DeletedBy)).CurrentValue = CurrentUserId;
             }
         }
-
-        return base.SavingChanges(eventData, result);
     }
 }
